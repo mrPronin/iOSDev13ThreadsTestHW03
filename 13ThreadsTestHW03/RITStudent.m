@@ -21,6 +21,8 @@
                 toRight:(NSInteger) right
          andResultBlock: (void(^)(NSString*, NSInteger, CGFloat)) block {
     
+    __weak RITStudent* weakSelf = self;
+    
     dispatch_async([RITStudent studentsQueue], ^{
         NSInteger answer = 0;
         
@@ -30,7 +32,7 @@
             answer = (arc4random() % (right - left) + left);
         }
         
-        block(self.name, answer, CACurrentMediaTime() - startTime);
+        block(weakSelf.name, answer, CACurrentMediaTime() - startTime);
         
     });
     
